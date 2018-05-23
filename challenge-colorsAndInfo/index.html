@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="map"></div>
+    <div class="info"></div>
+    
+
+    <script>
+        let json;
+        let id;
+        let byID;
+        let orgColor;
+        let jsonData
+        // let obj;
+        
+        document.addEventListener("DOMContentLoaded", loadData);
+
+        async function loadData() {
+            let svgData = await fetch("map.svg");
+            let svg = await svgData.text();
+            jsonData = await fetch("data.json");
+            json = await jsonData.json();
+            // obj = JSON.parse(json);
+            console.log(json);
+
+            // console.log(svg);
+
+            document.querySelector(".map").innerHTML = svg;
+        }
+
+        document.querySelector(".map").addEventListener("mouseover", changeColor);
+
+        function changeColor() {
+            id = event.target.getAttribute("id");
+            orgColor = document.querySelector("#"+id).getAttribute("fill");
+            document.querySelector("#"+id).setAttribute("fill", "pink");
+        }
+
+        document.querySelector(".map").addEventListener("mouseout", revertColor);
+
+        function revertColor() {
+            document.querySelector("#"+id).setAttribute("fill", orgColor);
+        }
+
+        document.querySelector(".map").addEventListener("click", by);
+
+        function by() {
+            byID = event.target.parentElement.getAttribute("id");
+
+            json.forEach(element => {
+                if (byID == element.city) {
+                    document.querySelector(".info").innerHTML = element.city + " - " + element["tax-base"] + " - " + element.rank + " - " + element.hold;
+                }
+            })
+           
+            console.log(byID);
+        }
+
+
+
+</script>
+</body>
+</html>

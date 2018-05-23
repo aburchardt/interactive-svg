@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="layers">
+    </div>
+    <div class="text1"></div>
+    <div class="text2"></div>
+    <div class="text3"></div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", loadSVG);
+
+        async function loadSVG() {
+        let svgData = await fetch("layers.svg");
+        let svg = await svgData.text();
+        
+        document.querySelector(".layers").innerHTML = svg;
+        }
+
+    
+       document.querySelector(".layers").addEventListener("click", showElement);
+
+       function showElement() {
+           console.log(event.target.getAttribute("id"));
+
+           let mac = document.querySelector("#mac");
+           let phone = document.querySelector("#phone");
+           let bike = document.querySelector("#bike");
+
+            mac.addEventListener("click", macClick);
+            phone.addEventListener("click", phoneClick);
+            bike.addEventListener("click", bikeClick);
+
+            function macClick() {
+            document.querySelector(".text1").innerHTML = "DETTE ER EN MAC";
+            }
+            function phoneClick() {
+                document.querySelector(".text1").innerHTML = "DETTE ER EN PHONE";
+            }
+            function bikeClick() {
+                document.querySelector(".text1").innerHTML = "DETTE ER EN BIKE";
+            }
+       }
+
+
+       
+        
+    </script>
+</body>
+</html>
